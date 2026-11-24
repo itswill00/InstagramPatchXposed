@@ -1,0 +1,25 @@
+# Gradle and build output
+.gradle/
+.kotlin/
+build/
+.externalNativeBuild/
+.cxx/
+
+# Local machine settings
+local.properties
+
+# IDE and tooling
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Signing keys must never be committed
+*.jks
+*.keystore
+keystore.properties
+
+# Built packages and logs
+*.apk
+*.aab
+*.log

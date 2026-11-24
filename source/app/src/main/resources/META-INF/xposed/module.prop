@@ -1,0 +1,6 @@
+id=com.golda.patchinstagram
+name=InstagramPatchXposed
+version=0.1.0
+versionCode=1
+author=itswill00
+description=Privacy and download improvements for Instagram.
