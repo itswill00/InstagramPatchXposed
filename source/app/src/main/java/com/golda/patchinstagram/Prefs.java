@@ -33,6 +33,18 @@ final class Prefs {
         downloadMedia = preferences.getBoolean(DOWNLOAD_MEDIA, true);
     }
 
+    static synchronized void set(String key, boolean value) {
+        if (CLEAN_LINKS.equals(key)) cleanLinks = value;
+        else if (NO_TRACKERS.equals(key)) noTrackers = value;
+        else if (BLOCK_LOCATION.equals(key)) blockLocation = value;
+        else if (ALLOW_SCREENSHOTS.equals(key)) allowScreenshots = value;
+        else if (BLOCK_CLIPBOARD_READ.equals(key)) blockClipboardRead = value;
+        else if (DOWNLOAD_MEDIA.equals(key)) downloadMedia = value;
+        else return;
+        SharedPreferences current = preferences;
+        if (current != null) current.edit().putBoolean(key, value).apply();
+    }
+
     static boolean on(String key) {
         if (CLEAN_LINKS.equals(key)) return cleanLinks;
         if (NO_TRACKERS.equals(key)) return noTrackers;
