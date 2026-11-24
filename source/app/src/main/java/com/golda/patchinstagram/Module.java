@@ -20,6 +20,7 @@ final class Module {
         if (!targets(packageName)) return;
         // Trackers read their metadata while the app starts, before Application.attach.
         try {
+            SettingsEntry.installHost();
             Trackers.install();
         } catch (Throwable error) {
             Hooks.log("trackers unavailable: " + error);
@@ -40,6 +41,7 @@ final class Module {
                     Screenshots.install();
                     ClipboardPrivacy.install();
                     MediaDownloader.install();
+                    SettingsEntry.install((Application) param.thisObject);
                     Hooks.log("started " + BuildConfig.VERSION_NAME);
                 } catch (Throwable error) {
                     Hooks.log("startup failed: " + error);
