@@ -17,7 +17,7 @@ https://www.instagram.com/reel/XYZ/?img_index=2&igshid=abc&fbclid=1
 
 ### Settings screen
 
-A small **IGPatch** button is added to every Instagram screen. It opens a settings activity hosted inside Instagram's process, so toggles write the same preferences the hooks read. LSPosed's module settings button opens the same screen.
+An **InstagramPatchXposed** row is added to Instagram's own settings list, next to the Settings row. It opens a settings activity hosted inside Instagram's process, so toggles write the same preferences the hooks read. LSPosed's module settings button opens the same screen.
 
 ### Media downloader
 
