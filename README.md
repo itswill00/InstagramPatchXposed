@@ -5,7 +5,7 @@
 
 An [LSPosed](https://github.com/JingMatrix/LSPosed) module for Instagram (`com.instagram.android`). The codebase is fresh and intentionally small: a stable Xposed backend, a settings store, and JVM-testable feature logic.
 
-> **Status: 0.1.0 — foundation.** The first feature removes tracking parameters from copied Instagram links. More features are planned; see [docs/FEATURES.md](docs/FEATURES.md).
+> **Status: 0.1.0.** Clean links, tracker metadata blocking, location blocking, screenshots, and clipboard read blocking are implemented. See [docs/FEATURES.md](docs/FEATURES.md).
 
 ## Contents
 
@@ -20,6 +20,9 @@ An [LSPosed](https://github.com/JingMatrix/LSPosed) module for Instagram (`com.i
 | Area | Feature |
 | --- | --- |
 | Links | Clean copied Instagram links: remove `igsh`, `igshid`, `fbclid`, `utm_*` and similar tracking parameters while keeping useful ones such as `img_index` and URL fragments |
+| Downloads | Copy a direct CDN media URL to save it into `Download/InstagramPatchXposed` |
+| Privacy | Block location APIs, block clipboard reads, clear `FLAG_SECURE` for screenshots |
+| Analytics | Disable Firebase/Facebook analytics metadata before their SDKs start |
 
 The link parser is plain Java and covered by unit tests. Hook installation is isolated so one failing feature cannot break the module startup.
 

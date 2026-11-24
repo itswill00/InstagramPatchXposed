@@ -15,6 +15,17 @@ https://www.instagram.com/reel/XYZ/?img_index=2&igshid=abc&fbclid=1
 → https://www.instagram.com/reel/XYZ/?img_index=2
 ```
 
+### Media downloader
+
+When a direct CDN media URL is copied to the clipboard, the module queues it through Android's `DownloadManager` and saves it under `Download/InstagramPatchXposed`. Post links are ignored; only direct `.jpg`, `.jpeg`, `.png`, `.webp` and `.mp4` URLs are downloaded.
+
+### Privacy and analytics
+
+- **Block location** — `LocationManager` answers with no fix, no providers enabled.
+- **Block clipboard reads** — `ClipboardManager.getPrimaryClip()` answers with no data; copied links are still cleaned on write.
+- **Allow screenshots** — `FLAG_SECURE` is cleared when Instagram sets window flags.
+- **Disable third-party analytics** — Firebase/Facebook collection flags are turned off in the app metadata before the SDKs read it.
+
 ## Planned
 
 Areas under consideration, in no particular order:
