@@ -21,6 +21,7 @@ An [LSPosed](https://github.com/JingMatrix/LSPosed) module for Instagram (`com.i
 | --- | --- |
 | Links | Clean copied Instagram links: remove `igsh`, `igshid`, `fbclid`, `utm_*` and similar tracking parameters while keeping useful ones such as `img_index` and URL fragments |
 | Downloads | Copy a direct CDN media URL to save it into `Download/InstagramPatchXposed` |
+| Settings | A floating **IGPatch** button inside Instagram opens switches for every feature |
 | Privacy | Block location APIs, block clipboard reads, clear `FLAG_SECURE` for screenshots |
 | Analytics | Disable Firebase/Facebook analytics metadata before their SDKs start |
 

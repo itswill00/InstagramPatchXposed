@@ -15,6 +15,10 @@ https://www.instagram.com/reel/XYZ/?img_index=2&igshid=abc&fbclid=1
 → https://www.instagram.com/reel/XYZ/?img_index=2
 ```
 
+### Settings screen
+
+A small **IGPatch** button is added to every Instagram screen. It opens a settings activity hosted inside Instagram's process, so toggles write the same preferences the hooks read. LSPosed's module settings button opens the same screen.
+
 ### Media downloader
 
 When a direct CDN media URL is copied to the clipboard, the module queues it through Android's `DownloadManager` and saves it under `Download/InstagramPatchXposed`. Post links are ignored; only direct `.jpg`, `.jpeg`, `.png`, `.webp` and `.mp4` URLs are downloaded.
