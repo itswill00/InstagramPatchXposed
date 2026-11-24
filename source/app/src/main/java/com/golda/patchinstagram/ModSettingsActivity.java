@@ -23,6 +23,7 @@ public final class ModSettingsActivity extends Activity {
     };
 
     @Override protected void onCreate(Bundle saved) {
+        setTheme(android.R.style.Theme_Material_Light);
         super.onCreate(saved);
         setTitle("InstagramPatchXposed");
         ScrollView scroll = new ScrollView(this);
@@ -38,6 +39,7 @@ public final class ModSettingsActivity extends Activity {
         for (String[] setting : SETTINGS) list.addView(row(setting[0], setting[1], setting[2]));
         scroll.addView(list, new ViewGroup.LayoutParams(-1, -1));
         setContentView(scroll);
+        Hooks.log("settings screen opened");
     }
 
     private LinearLayout row(String key, String label, String description) {

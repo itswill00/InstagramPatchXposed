@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Instrumentation;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 /** Adds an in-app shortcut and swaps the module's settings activity into Instagram's process. */
 final class SettingsEntry {
@@ -33,7 +32,8 @@ final class SettingsEntry {
         Hooks.hookAll(Activity.class, "onResume", new Hooks.Hook() {
             @Override protected void after(Hooks.Call param) {
                 if (!(param.thisObject instanceof Activity)) return;
-                addButton((Activity) param.thisObject);
+                Activity activity = (Activity) param.thisObject;
+                if (!(activity instanceof ModSettingsActivity)) addButton(activity);
             }
         });
     }
@@ -41,15 +41,33 @@ final class SettingsEntry {
     private static void addButton(Activity activity) {
         ViewGroup root = activity.findViewById(android.R.id.content);
         if (root == null || root.findViewWithTag(TAG) != null) return;
-        Button button = new Button(activity);
+        float density = activity.getResources().getDisplayMetrics().density;
+        int size = Math.round(40 * density);
+        int margin = Math.round(12 * density);
+
+        TextView button = new TextView(activity);
         button.setTag(TAG);
-        button.setText("IGPatch");
-        button.setTextSize(12);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2,
-                Gravity.TOP | Gravity.END);
-        int margin = Math.round(8 * activity.getResources().getDisplayMetrics().density);
+        button.setText("IG");
+        button.setTextColor(0xFFFFFFFF);
+        button.setTextSize(14);
+        button.setGravity(Gravity.CENTER);
+        button.setElevation(6 * density);
+
+        GradientDrawable background = new GradientDrawable();
+        background.setShape(GradientDrawable.OVAL);
+        background.setColor(0xFF8B5CF6);
+        background.setStroke(Math.max(1, Math.round(density)), 0xFFFFFFFF);
+        button.setBackground(background);
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size, Gravity.TOP | Gravity.END);
         params.setMargins(margin, margin, margin, margin);
-        button.setOnClickListener(view -> open(activity));
+        button.setOnClickListener(view -> {
+            try {
+                open(activity);
+            } catch (Throwable error) {
+                Hooks.log("settings open failed: " + error);
+            }
+        });
         root.addView(button, params);
     }
 
