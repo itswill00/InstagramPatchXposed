@@ -18,15 +18,28 @@ final class Module {
 
     static void load(String packageName, String processName, ClassLoader loader) {
         if (!targets(packageName)) return;
+        // Trackers read their metadata while the app starts, before Application.attach.
+        try {
+            Trackers.install();
+        } catch (Throwable error) {
+            Hooks.log("trackers unavailable: " + error);
+        }
         Hooks.findAndHook(Application.class, "attach", Context.class, new Hooks.Hook() {
             @Override protected void before(Hooks.Call param) {
-                if (param.args[0] instanceof Context) Prefs.load((Context) param.args[0]);
+                if (param.args[0] instanceof Context) {
+                    Prefs.load((Context) param.args[0]);
+                    MediaDownloader.attach((Context) param.args[0]);
+                }
             }
 
             @Override protected void after(Hooks.Call param) {
                 if (!STARTED.compareAndSet(false, true)) return;
                 try {
                     CleanLinks.install(loader);
+                    LocationGuard.install();
+                    Screenshots.install();
+                    ClipboardPrivacy.install();
+                    MediaDownloader.install();
                     Hooks.log("started " + BuildConfig.VERSION_NAME);
                 } catch (Throwable error) {
                     Hooks.log("startup failed: " + error);
